@@ -1,0 +1,205 @@
+================================================================================
+                   🎯 CONNECT YOUR TEACHABLE MACHINE MODEL
+================================================================================
+
+PROBLEM: You see "Error loading model" message
+
+SOLUTION: Follow one of these two options:
+
+================================================================================
+                         OPTION 1: HOSTED MODEL
+                    (Recommended - Easiest to Setup!)
+================================================================================
+
+Step 1: Get Your Model URL
+  ├─ Go to: https://teachablemachine.withgoogle.com
+  ├─ Open your posture project
+  ├─ Click "Share" button
+  └─ Copy the URL (example: https://teachablemachine.withgoogle.com/models/ABC123/)
+
+Step 2: Update index.html
+  ├─ Open index.html in text editor
+  ├─ Find line ~715: const MODEL_URL = "./my_model/";
+  └─ Replace with: const MODEL_URL = "https://teachablemachine.withgoogle.com/models/YOUR_ID/";
+     (Replace YOUR_ID with the part after /models/)
+
+Step 3: Test
+  ├─ Save file
+  ├─ Open in browser
+  ├─ Click "Check Posture"
+  ├─ Click "Start Camera"
+  └─ You should see your predictions! ✅
+
+Benefits:
+  ✓ No files to download
+  ✓ Works immediately
+  ✓ Always uses latest model
+
+================================================================================
+                         OPTION 2: LOCAL FILES
+                  (Download & Keep Files Locally)
+================================================================================
+
+Step 1: Export Model from Teachable Machine
+  ├─ Go to: https://teachablemachine.withgoogle.com
+  ├─ Open your project
+  ├─ Click "Export" button
+  ├─ Select "TensorFlow.js"
+  ├─ Click "Download"
+  └─ Extract the ZIP file
+
+Step 2: Create my_model Folder
+  ├─ Create folder called: my_model
+  ├─ In same location as index.html
+  └─ File structure should be:
+     AI-Project/
+     ├── index.html
+     ├── my_model/
+     │   ├── model.json
+     │   ├── metadata.json
+     │   └── weights.bin
+     └── (other files)
+
+Step 3: Copy Files
+  ├─ Copy model.json to my_model/
+  ├─ Copy metadata.json to my_model/
+  └─ Copy weights.bin to my_model/
+
+Step 4: Verify index.html
+  ├─ Open index.html
+  ├─ Find line ~715: const MODEL_URL = "./my_model/";
+  └─ Leave it as is! (Already set to local)
+
+Step 5: Run with HTTP Server
+  ├─ Open terminal
+  ├─ Go to project folder: cd /path/to/AI-Project
+  ├─ Run: python3 -m http.server 8000
+  └─ Visit: http://localhost:8000
+
+Step 6: Test
+  ├─ Click "Check Posture"
+  ├─ Click "Start Camera"
+  └─ You should see your predictions! ✅
+
+Benefits:
+  ✓ Works offline (after initial load)
+  ✓ Faster loading
+  ✓ No internet required
+
+================================================================================
+                           WHICH OPTION?
+================================================================================
+
+Choose OPTION 1 if:
+  • You want fastest setup
+  • You have internet
+  • You don't want to download files
+  → Takes 2 minutes!
+
+Choose OPTION 2 if:
+  • You want offline capability
+  • You want faster loading
+  • You prefer local files
+  → Takes 10 minutes
+
+================================================================================
+                        TROUBLESHOOTING
+================================================================================
+
+Problem: "Error loading model"
+
+If using OPTION 1 (Hosted):
+  ✓ Check URL is correct (copy from Teachable Machine)
+  ✓ Check URL ends with "/" (important!)
+  ✓ Check internet connection
+  ✓ Check browser console (F12) for error details
+
+If using OPTION 2 (Local):
+  ✓ Check "my_model" folder exists
+  ✓ Check all 3 files are there:
+    - model.json
+    - metadata.json
+    - weights.bin (or group1-shard1of1.bin)
+  ✓ Check you're using HTTP server (not file://)
+  ✓ Check browser console (F12) for error details
+
+Problem: Camera won't start
+  ✓ Browser might be blocking camera
+  ✓ Allow camera permission when asked
+  ✓ Try a different browser
+  ✓ Restart your browser
+
+================================================================================
+                        EXAMPLE MODEL IDS
+================================================================================
+
+Your Teachable Machine URL will look like one of these:
+
+https://teachablemachine.withgoogle.com/models/MUKJ_LGTl/
+                                              ^^^^^^^^^ = Your Model ID
+
+https://teachablemachine.withgoogle.com/models/abc123def456/
+                                              ^^^^^^^^^^^^^ = Your Model ID
+
+You need to extract the ID and put it in index.html:
+
+const MODEL_URL = "https://teachablemachine.withgoogle.com/models/MUKJ_LGTl/";
+                                                                 ^^^^^^^^^
+
+================================================================================
+                        UPDATED CODE IN YOUR APP
+================================================================================
+
+Your index.html now has better error messages! It will tell you:
+
+✅ What URL it tried to load
+✅ If the model loaded successfully
+✅ How many classes/predictions available
+✅ Specific error if something goes wrong
+
+Check browser console (F12 → Console tab) to see detailed logs!
+
+================================================================================
+                        QUICK CHECKLIST
+================================================================================
+
+Before you start:
+  ☐ Do you have a Teachable Machine model trained?
+  ☐ Do you have index.html open?
+  ☐ Did you save any changes?
+
+If using OPTION 1:
+  ☐ Did you copy your model URL from Teachable Machine?
+  ☐ Did you paste it correctly in index.html?
+  ☐ Does it end with "/"?
+  ☐ Did you save the file?
+
+If using OPTION 2:
+  ☐ Did you download and extract the ZIP?
+  ☐ Did you create "my_model" folder?
+  ☐ Did you copy all 3 files?
+  ☐ Are you running HTTP server?
+
+Testing:
+  ☐ Does home screen load?
+  ☐ Can you click "Check Posture"?
+  ☐ Can you click "Start Camera"?
+  ☐ Does camera start?
+  ☐ Do you see predictions?
+
+================================================================================
+                        YOU'RE ALMOST THERE!
+================================================================================
+
+Pick Option 1 or 2 above and follow the steps.
+
+The app is ready - it just needs your model!
+
+Questions? Check:
+  • SETUP_INSTRUCTIONS.md - Detailed setup
+  • CONNECT_MODEL.md - Quick reference
+  • This file - Full troubleshooting
+
+LET'S GET THIS WORKING! 🚀
+
+================================================================================
