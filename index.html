@@ -12,8 +12,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-<<<<<<< HEAD
-=======
 
         :root {
             --primary: #3b82f6;
@@ -553,7 +551,6 @@
     </style>
 </head>
 <body>
-    <!-- HEADER -->
     <div class="header">
         <div class="header-content">
             <div class="logo">
@@ -564,16 +561,13 @@
         </div>
     </div>
 
-    <!-- MAIN CONTAINER -->
     <div class="main-container">
-        <!-- NAVIGATION -->
         <div class="nav">
             <button class="nav-btn active" onclick="showPage('home')">Home</button>
             <button class="nav-btn" onclick="showPage('analytics')">Analytics</button>
             <button class="nav-btn" onclick="showPage('learn')">Learn</button>
         </div>
 
-        <!-- HOME PAGE -->
         <div id="home" class="page active">
             <div class="hero">
                 <h1>Improve Your Posture</h1>
@@ -603,7 +597,6 @@
             </div>
         </div>
 
-        <!-- ANALYTICS PAGE -->
         <div id="analytics" class="page">
             <div class="analytics-header">
                 <h2>Posture Analysis</h2>
@@ -629,7 +622,6 @@
             </div>
 
             <div id="analysisResults" style="display: none;">
-                <!-- VERDICT -->
                 <div class="verdict-box">
                     <div class="verdict-icon" id="verdictIcon">🎯</div>
                     <div class="verdict-title" id="verdictTitle">Analyzing...</div>
@@ -637,7 +629,6 @@
                     <div class="verdict-score" id="verdictScore">0%</div>
                 </div>
 
-                <!-- DETAILED ANALYSIS -->
                 <div style="margin-bottom: 24px;">
                     <h3 style="margin-bottom: 16px; font-size: 20px; font-weight: 700;">Class Breakdown</h3>
                     <div class="analysis-grid">
@@ -687,7 +678,6 @@
                     </div>
                 </div>
 
-                <!-- STATISTICS -->
                 <div style="margin-bottom: 24px;">
                     <h3 style="margin-bottom: 16px; font-size: 20px; font-weight: 700;">Statistics</h3>
                     <div class="stats-grid">
@@ -716,7 +706,6 @@
             </div>
         </div>
 
-        <!-- LEARN PAGE -->
         <div id="learn" class="page">
             <h2 style="margin-bottom: 32px; font-size: 32px;">Posture Guide</h2>
 
@@ -760,7 +749,6 @@
         </div>
     </div>
 
-    <!-- HIDDEN LABEL CONTAINER -->
     <div id="label-container" style="display: none;"></div>
 
     <script>
@@ -779,7 +767,14 @@
             // Update nav buttons
             const navBtns = document.querySelectorAll('.nav-btn');
             navBtns.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            // IMPORTANT: Use a check for the event target when clicking nav buttons
+            if (event && event.target) {
+                event.target.classList.add('active');
+            } else {
+                // Fallback for initial load or programmatic call
+                document.querySelector(`.nav-btn[onclick="showPage('${pageId}')"]`).classList.add('active');
+            }
+
 
             // Stop camera if leaving analytics
             if (pageId !== 'analytics') {
@@ -834,7 +829,7 @@
                 console.error('Error initializing camera:', error);
                 isModelLoading = false;
                 document.getElementById('loadingState').classList.remove('show');
-                alert('Error loading model: ' + error.message);
+                alert('Error loading model. Check console for details. (Requires webcam permissions)');
                 document.getElementById('startBtn').style.display = 'inline-flex';
                 document.getElementById('stopBtn').style.display = 'none';
             }
@@ -877,7 +872,7 @@
                 document.getElementById('confidence').textContent = (maxConfidence * 100).toFixed(1) + '%';
 
                 // Update verdict
-                if (goodScore > badScore) {
+                if (parseFloat(goodScore) > parseFloat(badScore)) {
                     document.getElementById('verdictIcon').textContent = '✅';
                     document.getElementById('verdictTitle').textContent = 'Good Posture';
                     document.getElementById('verdictTitle').className = 'verdict-title good';
@@ -913,373 +908,13 @@
             document.getElementById('webcam-container').innerHTML = '';
             document.getElementById('analysisResults').style.display = 'none';
         }
-    </script>
-</body>
-</html>
-
-    </style>
-</head>
-<body>
-    <!-- HEADER -->
-    <div class="header">
-        <div class="header-content">
-            <div class="logo">
-                <span class="logo-icon">🎯</span>
-                <span>PostureFlow</span>
-            </div>
-            <div style="font-size: 14px; color: var(--gray-500);">AI-Powered Posture Analysis</div>
-        </div>
-    </div>
-
-    <!-- MAIN CONTAINER -->
-    <div class="main-container">
-        <!-- NAVIGATION -->
-        <div class="nav">
-            <button class="nav-btn active" onclick="showPage('home')">Home</button>
-            <button class="nav-btn" onclick="showPage('analytics')">Analytics</button>
-            <button class="nav-btn" onclick="showPage('learn')">Learn</button>
-        </div>
-
-        <!-- HOME PAGE -->
-        <div id="home" class="page active">
-            <div class="hero">
-                <h1>Improve Your Posture</h1>
-                <p>Real-time AI-powered posture analysis to help you maintain perfect alignment throughout your day.</p>
-                <div class="hero-buttons">
-                    <button class="btn btn-primary" onclick="showPage('analytics')">Start Analysis →</button>
-                    <button class="btn btn-outline" onclick="showPage('learn')">Learn More</button>
-                </div>
-            </div>
-
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🎥</div>
-                    <h3>Real-Time Detection</h3>
-                    <p>Instant posture feedback using advanced AI and machine learning technology.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Detailed Analytics</h3>
-                    <p>Professional metrics and confidence scores for each posture classification.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💡</div>
-                    <h3>Expert Tips</h3>
-                    <p>Evidence-based posture guidance and exercises from health professionals.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- ANALYTICS PAGE -->
-        <div id="analytics" class="page">
-            <div class="analytics-header">
-                <h2>Posture Analysis</h2>
-                <p>Real-time posture detection powered by AI</p>
-            </div>
-
-            <div class="camera-container">
-                <div style="margin-bottom: 20px;">
-                    <div class="video-wrapper">
-                        <div id="webcam-container"></div>
-                    </div>
-                </div>
-
-                <div class="camera-controls">
-                    <button class="btn btn-primary" id="startBtn" onclick="initCamera()">🎥 Start Camera</button>
-                    <button class="btn btn-secondary" id="stopBtn" onclick="stopCamera()" style="display: none;">⏹ Stop</button>
-                </div>
-
-                <div id="loadingState" class="loading">
-                    <div class="spinner"></div>
-                    <div class="loading-text">Loading posture model...</div>
-                </div>
-            </div>
-
-            <div id="analysisResults" style="display: none;">
-                <!-- VERDICT -->
-                <div class="verdict-box">
-                    <div class="verdict-icon" id="verdictIcon">🎯</div>
-                    <div class="verdict-title" id="verdictTitle">Analyzing...</div>
-                    <div class="verdict-subtitle" id="verdictSubtitle">Please maintain your position</div>
-                    <div class="verdict-score" id="verdictScore">0%</div>
-                </div>
-
-                <!-- DETAILED ANALYSIS -->
-                <div style="margin-bottom: 24px;">
-                    <h3 style="margin-bottom: 16px; font-size: 20px; font-weight: 700;">Class Breakdown</h3>
-                    <div class="analysis-grid">
-                        <div class="class-card good">
-                            <div class="class-header">
-                                <div class="class-name">Class 1 (Good)</div>
-                                <div class="class-percentage good" id="class1Percent">0%</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="class1Bar" style="width: 0%"></div>
-                            </div>
-                            <div style="font-size: 12px; color: var(--gray-500);">Excellent posture detected</div>
-                        </div>
-
-                        <div class="class-card bad">
-                            <div class="class-header">
-                                <div class="class-name">Class 2 (Poor)</div>
-                                <div class="class-percentage bad" id="class2Percent">0%</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="class2Bar" style="width: 0%"></div>
-                            </div>
-                            <div style="font-size: 12px; color: var(--gray-500);">Slouching detected</div>
-                        </div>
-
-                        <div class="class-card good">
-                            <div class="class-header">
-                                <div class="class-name">Class 3 (Good)</div>
-                                <div class="class-percentage good" id="class3Percent">0%</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="class3Bar" style="width: 0%"></div>
-                            </div>
-                            <div style="font-size: 12px; color: var(--gray-500);">Natural alignment</div>
-                        </div>
-
-                        <div class="class-card bad">
-                            <div class="class-header">
-                                <div class="class-name">Class 4 (Poor)</div>
-                                <div class="class-percentage bad" id="class4Percent">0%</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="class4Bar" style="width: 0%"></div>
-                            </div>
-                            <div style="font-size: 12px; color: var(--gray-500);">Poor alignment</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- STATISTICS -->
-                <div style="margin-bottom: 24px;">
-                    <h3 style="margin-bottom: 16px; font-size: 20px; font-weight: 700;">Statistics</h3>
-                    <div class="stats-grid">
-                        <div class="stat-box">
-                            <div class="stat-label">Good Posture Score</div>
-                            <div class="stat-value" id="goodScore" style="color: var(--success);">0%</div>
-                            <div class="stat-sub">Classes 1 + 3</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-label">Poor Posture Score</div>
-                            <div class="stat-value" id="poorScore" style="color: var(--danger);">0%</div>
-                            <div class="stat-sub">Classes 2 + 4</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-label">Confidence Level</div>
-                            <div class="stat-value" id="confidence" style="color: var(--primary);">0%</div>
-                            <div class="stat-sub">Highest class probability</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-label">Assessment</div>
-                            <div class="stat-value" id="assessment" style="color: var(--primary); font-size: 24px;">—</div>
-                            <div class="stat-sub">Real-time verdict</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- LEARN PAGE -->
-        <div id="learn" class="page">
-            <h2 style="margin-bottom: 32px; font-size: 32px;">Posture Guide</h2>
-
-            <div class="tips-section">
-                <div class="tip-card">
-                    <div class="tip-icon">🪑</div>
-                    <h3>Sitting Position</h3>
-                    <p>Keep your back against the chair, feet flat on the floor, and elbows at 90°. Your screen should be at eye level to avoid strain.</p>
-                </div>
-
-                <div class="tip-card">
-                    <div class="tip-icon">📱</div>
-                    <h3>Phone Height</h3>
-                    <p>Hold your phone at eye level to avoid "tech neck." This reduces strain on your neck and shoulders significantly.</p>
-                </div>
-
-                <div class="tip-card">
-                    <div class="tip-icon">🚶</div>
-                    <h3>Walking Posture</h3>
-                    <p>Shoulders relaxed, head straight, core engaged. Look ahead, not down. Take natural strides with good balance.</p>
-                </div>
-
-                <div class="tip-card">
-                    <div class="tip-icon">💪</div>
-                    <h3>Strengthen Your Core</h3>
-                    <p>Daily exercises like planks, bridges, and rows strengthen muscles that support good posture throughout the day.</p>
-                </div>
-
-                <div class="tip-card">
-                    <div class="tip-icon">⏰</div>
-                    <h3>Take Breaks</h3>
-                    <p>Every 30 minutes, stand up, stretch, and reset your posture. Movement is key to musculoskeletal health.</p>
-                </div>
-
-                <div class="tip-card">
-                    <div class="tip-icon">🧘</div>
-                    <h3>Mindfulness</h3>
-                    <p>Be aware of your posture throughout the day. Small corrections compound into better long-term habits.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- HIDDEN LABEL CONTAINER -->
-    <div id="label-container" style="display: none;"></div>
-
-    <script>
-        // ========== PAGE NAVIGATION ==========
-        function showPage(pageId) {
-            // Hide all pages
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-
-            // Show selected page
-            const selectedPage = document.getElementById(pageId);
-            if (selectedPage) {
-                selectedPage.classList.add('active');
-            }
-
-            // Update nav buttons
-            const navBtns = document.querySelectorAll('.nav-btn');
-            navBtns.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            // Stop camera if leaving analytics
-            if (pageId !== 'analytics') {
-                stopCamera();
-            }
-
-            window.scrollTo(0, 0);
-        }
-
-        // ========== TEACHABLE MACHINE SETUP ==========
-        let model, webcam, maxPredictions;
-        let isModelLoading = false;
-        let isCameraActive = false;
-
-        const MODEL_URL = "https://teachablemachine.withgoogle.com/models/MUKJ_LGTl/";
-
-        async function initCamera() {
-            if (isCameraActive || isModelLoading) return;
-
-            isModelLoading = true;
-            document.getElementById('loadingState').classList.add('show');
-
-            try {
-                const modelURL = MODEL_URL + "model.json";
-                const metadataURL = MODEL_URL + "metadata.json";
-
-                console.log('Loading model from:', modelURL);
-
-                model = await tmImage.load(modelURL, metadataURL);
-                maxPredictions = model.getTotalClasses();
-                console.log('Model loaded successfully with', maxPredictions, 'classes');
-
-                const flip = true;
-                webcam = new tmImage.Webcam(400, 300, flip);
-                await webcam.setup();
-                await webcam.play();
-
-                isCameraActive = true;
-                isModelLoading = false;
-                document.getElementById('loadingState').classList.remove('show');
-
-                document.getElementById('startBtn').style.display = 'none';
-                document.getElementById('stopBtn').style.display = 'inline-flex';
-                document.getElementById('analysisResults').style.display = 'block';
-
-                const container = document.getElementById('webcam-container');
-                container.innerHTML = '';
-                container.appendChild(webcam.canvas);
-
-                window.requestAnimationFrame(predict);
-            } catch (error) {
-                console.error('Error initializing camera:', error);
-                isModelLoading = false;
-                document.getElementById('loadingState').classList.remove('show');
-                alert('Error loading model: ' + error.message);
-                document.getElementById('startBtn').style.display = 'inline-flex';
-                document.getElementById('stopBtn').style.display = 'none';
-            }
-        }
-
-        async function predict() {
-            if (!isCameraActive || !webcam) return;
-
-            try {
-                webcam.update();
-                const predictions = await model.predict(webcam.canvas);
-
-                const class1 = (predictions[0].probability * 100).toFixed(1);
-                const class2 = (predictions[1].probability * 100).toFixed(1);
-                const class3 = (predictions[2].probability * 100).toFixed(1);
-                const class4 = (predictions[3].probability * 100).toFixed(1);
-
-                // Update class percentages
-                document.getElementById('class1Percent').textContent = class1 + '%';
-                document.getElementById('class2Percent').textContent = class2 + '%';
-                document.getElementById('class3Percent').textContent = class3 + '%';
-                document.getElementById('class4Percent').textContent = class4 + '%';
-
-                // Update progress bars
-                document.getElementById('class1Bar').style.width = class1 + '%';
-                document.getElementById('class2Bar').style.width = class2 + '%';
-                document.getElementById('class3Bar').style.width = class3 + '%';
-                document.getElementById('class4Bar').style.width = class4 + '%';
-
-                // Calculate good vs bad
-                const goodScore = (parseFloat(class1) + parseFloat(class3)).toFixed(1);
-                const badScore = (parseFloat(class2) + parseFloat(class4)).toFixed(1);
-
-                document.getElementById('goodScore').textContent = goodScore + '%';
-                document.getElementById('poorScore').textContent = badScore + '%';
-
-                // Find highest confidence
-                const allScores = [predictions[0].probability, predictions[1].probability, predictions[2].probability, predictions[3].probability];
-                const maxConfidence = Math.max(...allScores);
-                document.getElementById('confidence').textContent = (maxConfidence * 100).toFixed(1) + '%';
-
-                // Update verdict
-                if (goodScore > badScore) {
-                    document.getElementById('verdictIcon').textContent = '✅';
-                    document.getElementById('verdictTitle').textContent = 'Good Posture';
-                    document.getElementById('verdictTitle').className = 'verdict-title good';
-                    document.getElementById('verdictSubtitle').textContent = 'Your posture looks excellent!';
-                    document.getElementById('verdictScore').textContent = goodScore + '%';
-                    document.getElementById('assessment').textContent = '✓ Good';
-                    document.getElementById('assessment').style.color = 'var(--success)';
-                } else {
-                    document.getElementById('verdictIcon').textContent = '⚠️';
-                    document.getElementById('verdictTitle').textContent = 'Poor Posture';
-                    document.getElementById('verdictTitle').className = 'verdict-title bad';
-                    document.getElementById('verdictSubtitle').textContent = 'Try to adjust your position.';
-                    document.getElementById('verdictScore').textContent = badScore + '%';
-                    document.getElementById('assessment').textContent = '✗ Needs Work';
-                    document.getElementById('assessment').style.color = 'var(--danger)';
-                }
-
-                window.requestAnimationFrame(predict);
-            } catch (error) {
-                console.error('Prediction error:', error);
-            }
-        }
-
-        function stopCamera() {
-            if (webcam) {
-                webcam.stop();
-                webcam = null;
-            }
-            isCameraActive = false;
-
-            document.getElementById('startBtn').style.display = 'inline-flex';
-            document.getElementById('stopBtn').style.display = 'none';
-            document.getElementById('webcam-container').innerHTML = '';
-            document.getElementById('analysisResults').style.display = 'none';
-        }
+        
+        // Ensure the correct page is shown on load (since the event object isn't available)
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.nav-btn.active').classList.remove('active');
+            document.querySelector('.nav-btn[onclick="showPage(\'home\')"]').classList.add('active');
+            document.getElementById('home').classList.add('active');
+        });
     </script>
 </body>
 </html>
