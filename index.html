@@ -596,6 +596,7 @@
                 </div>
             </div>
         </div>
+
         <div id="analytics" class="page">
             <div class="analytics-header">
                 <h2>Posture Analysis</h2>
@@ -766,16 +767,12 @@
             // Update nav buttons
             const navBtns = document.querySelectorAll('.nav-btn');
             navBtns.forEach(btn => btn.classList.remove('active'));
-            
-            // This conditional logic handles updating the button active state correctly
-            if (event && event.target && event.target.classList.contains('nav-btn')) {
+            // IMPORTANT: Use a check for the event target when clicking nav buttons
+            if (event && event.target) {
                 event.target.classList.add('active');
             } else {
                 // Fallback for initial load or programmatic call
-                const programNavBtn = document.querySelector(`.nav-btn[onclick="showPage('${pageId}')"]`);
-                if(programNavBtn) {
-                    programNavBtn.classList.add('active');
-                }
+                document.querySelector(`.nav-btn[onclick="showPage('${pageId}')"]`).classList.add('active');
             }
 
 
@@ -914,23 +911,9 @@
         
         // Ensure the correct page is shown on load (since the event object isn't available)
         document.addEventListener('DOMContentLoaded', () => {
-            // Ensure only one nav button is active on load
-            const activeNavButton = document.querySelector('.nav-btn.active');
-            if (activeNavButton) {
-                activeNavButton.classList.remove('active');
-            }
-            
-            // Set 'Home' as active by default
-            const homeNavButton = document.querySelector('.nav-btn[onclick="showPage(\'home\')"]');
-            if (homeNavButton) {
-                homeNavButton.classList.add('active');
-            }
-            
-            // Ensure home page content is visible
-            const homePage = document.getElementById('home');
-            if (homePage) {
-                homePage.classList.add('active');
-            }
+            document.querySelector('.nav-btn.active').classList.remove('active');
+            document.querySelector('.nav-btn[onclick="showPage(\'home\')"]').classList.add('active');
+            document.getElementById('home').classList.add('active');
         });
     </script>
 </body>
